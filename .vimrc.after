@@ -1,0 +1,55 @@
+set nocompatible
+syntax on
+filetype plugin indent on
+
+color vividchalk
+
+nmap \\ <Plug>NERDCommenterInvert
+xmap \\ <Plug>NERDCommenterInvert
+
+map ;l :tabprevious<CR>
+map ;' :tabnext<CR>
+
+set t_Co=256
+au WinLeave * set nocursorline nocursorcolumn
+au WinEnter * set cursorline cursorcolumn
+set cursorline cursorcolumn
+let &cc = join(range(81,400),',')
+hi ColorColumn ctermbg=233
+hi CursorColumn ctermbg=234
+hi LineNr ctermbg=18
+set hlsearch
+
+command Pp :exec "%!xmllint --format -"
+
+let g:NERDTreeWinSize=50
+
+" CtrlP settings
+" Index dir vim was opened with
+let g:ctrlp_working_path_mode = 0
+" Index using ag instead (order of magnitude faster)
+let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+     \ --ignore .git
+     \ --ignore .svn
+     \ --ignore .hg
+     \ --ignore .DS_Store
+     \ --ignore "**/*.pyc"
+     \ --ignore .git5_specs
+     \ --ignore review
+     \ -g ""'
+
+" ack.vim settings
+" Open a new tab and search for something
+nmap <leader>a :tab split<CR>:Ack ""<Left>
+" Search for word under cursor in new tab
+nmap <leader>A :tab split<CR>:Ack <C-r><C-w><CR>
+" Use ag in ack.vim
+if executable('ag')
+  let g:ackprg = 'ag --column'
+endif
+
+" General mappings
+" Close tab
+nmap <leader>tc :tabclose
+" Close other tabs
+nmap <leader>to :tabonly

@@ -17,9 +17,6 @@
     tree-with-author = log --graph --pretty=format:\"%h %s | AUTHOR: %an <%ae> %cd\" --decorate
     amend = commit --amend
 
-; [core]
-    ; excludesfile = /Users/jwinkler/.gitignore
-
 [push]
     default = tracking
 

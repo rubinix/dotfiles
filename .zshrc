@@ -4,6 +4,9 @@ eval "$(direnv hook zsh)"
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$HOME/go/bin:$PATH
 
+# Homebrew on Apple Silicon (Intel is already covered by /usr/local/bin above).
+[ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 

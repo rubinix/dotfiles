@@ -22,27 +22,35 @@ fi
 [ -d /Applications/iTerm.app ] || brew install --cask iterm2
 brew install --cask font-jetbrains-mono-nerd-font
 
-# Clone the dotfiles bare repo and check out into $HOME, backing up any
-# pre-existing conflicting files into ~/.dotfiles-backup/ (parent dirs preserved).
-if [ ! -d "$HOME/.dotfiles" ]; then
-  git clone --bare https://github.com/rubinix/dotfiles.git "$HOME/.dotfiles"
-fi
-
 dotfiles() {
   /usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" "$@"
 }
 
+# Clone the dotfiles bare repo, or fetch the latest if it already exists.
+# (--bare puts remote branches directly in refs/heads, so we use the
+# `master:master` refspec to update the local master ref in one step.)
+if [ ! -d "$HOME/.dotfiles" ]; then
+  git clone --bare https://github.com/rubinix/dotfiles.git "$HOME/.dotfiles"
+else
+  echo "Updating ~/.dotfiles from origin..."
+  dotfiles fetch origin master:master
+fi
+
 mkdir -p "$HOME/.dotfiles-backup"
 
-if dotfiles checkout 2>/dev/null; then
+# Check out into $HOME. -f overwrites locally-modified *tracked* files
+# (so re-runs pick up updates) but won't touch untracked ones — those
+# still trigger the "would be overwritten" error, which we handle by
+# moving them aside into ~/.dotfiles-backup/ (parent dirs preserved).
+if dotfiles checkout -f 2>/dev/null; then
   echo "Checked out dotfiles."
 else
-  echo "Backing up pre-existing dotfiles to ~/.dotfiles-backup ..."
+  echo "Backing up pre-existing untracked dotfiles to ~/.dotfiles-backup ..."
   dotfiles checkout 2>&1 | grep -E '^\s+\S' | awk '{print $1}' | while read -r f; do
     mkdir -p "$HOME/.dotfiles-backup/$(dirname "$f")"
     mv "$HOME/$f" "$HOME/.dotfiles-backup/$f"
   done
-  dotfiles checkout
+  dotfiles checkout -f
 fi
 
 dotfiles config status.showUntrackedFiles no

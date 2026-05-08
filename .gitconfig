@@ -83,3 +83,8 @@
 	history-view-vpane-position = 648
 	file-view-vpane-position = 706
 	main-window-view = HistoryView
+[credential]
+	helper = 
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true

@@ -26,4 +26,11 @@ fi
 
 dotfiles config status.showUntrackedFiles no
 
+# Install oh-my-zsh if missing (KEEP_ZSHRC=yes preserves the .zshrc we just checked out;
+# RUNZSH=no prevents the installer from dropping us into a subshell).
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  echo "Installing oh-my-zsh..."
+  RUNZSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
 echo "Done. Open a new shell so the 'dotfiles' function (defined in ~/.zshrc) is loaded."

@@ -17,8 +17,10 @@ elif [ -x /usr/local/bin/brew ]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-# iTerm2 + the Nerd Font my iTerm profile references.
-brew install --cask iterm2 font-jetbrains-mono-nerd-font
+# iTerm2 + the Nerd Font my iTerm profile references. Skip iTerm2 if it's
+# already present (e.g. installed manually) — brew refuses to overwrite.
+[ -d /Applications/iTerm.app ] || brew install --cask iterm2
+brew install --cask font-jetbrains-mono-nerd-font
 
 # Clone the dotfiles bare repo and check out into $HOME, backing up any
 # pre-existing conflicting files into ~/.dotfiles-backup/ (parent dirs preserved).

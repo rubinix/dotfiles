@@ -24,7 +24,9 @@ brew install --cask font-jetbrains-mono-nerd-font
 
 # Clone the dotfiles bare repo and check out into $HOME, backing up any
 # pre-existing conflicting files into ~/.dotfiles-backup/ (parent dirs preserved).
-git clone --bare https://github.com/rubinix/dotfiles.git "$HOME/.dotfiles"
+if [ ! -d "$HOME/.dotfiles" ]; then
+  git clone --bare https://github.com/rubinix/dotfiles.git "$HOME/.dotfiles"
+fi
 
 dotfiles() {
   /usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME" "$@"

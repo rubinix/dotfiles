@@ -1,0 +1,82 @@
+# AeroSpace tiling window manager
+# Reference: https://nikitabobko.github.io/AeroSpace/guide
+
+start-at-login = true
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+accordion-padding = 30
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+[gaps]
+inner.horizontal = 8
+inner.vertical = 8
+outer.left = 8
+outer.bottom = 8
+outer.top = 8
+outer.right = 8
+
+# Hyper = caps_lock (via Karabiner) = cmd+ctrl+alt+shift
+# Note: because hyper already includes shift, "move" actions live in service mode
+# rather than as hyper+shift+key combos.
+[mode.main.binding]
+
+# Focus
+cmd-alt-ctrl-shift-h = 'focus left'
+cmd-alt-ctrl-shift-j = 'focus down'
+cmd-alt-ctrl-shift-k = 'focus up'
+cmd-alt-ctrl-shift-l = 'focus right'
+
+# Workspaces (focus)
+cmd-alt-ctrl-shift-1 = 'workspace 1'
+cmd-alt-ctrl-shift-2 = 'workspace 2'
+cmd-alt-ctrl-shift-3 = 'workspace 3'
+cmd-alt-ctrl-shift-4 = 'workspace 4'
+cmd-alt-ctrl-shift-5 = 'workspace 5'
+cmd-alt-ctrl-shift-6 = 'workspace 6'
+cmd-alt-ctrl-shift-7 = 'workspace 7'
+cmd-alt-ctrl-shift-8 = 'workspace 8'
+cmd-alt-ctrl-shift-9 = 'workspace 9'
+
+# Layout toggles
+cmd-alt-ctrl-shift-slash = 'layout tiles horizontal vertical'
+cmd-alt-ctrl-shift-comma = 'layout accordion horizontal vertical'
+
+# Fullscreen
+cmd-alt-ctrl-shift-f = 'fullscreen'
+
+# Cycle workspace back and forth
+cmd-alt-ctrl-shift-tab = 'workspace-back-and-forth'
+
+# Enter service mode (move/resize/admin actions)
+cmd-alt-ctrl-shift-semicolon = 'mode service'
+
+[mode.service.binding]
+esc = ['reload-config', 'mode main']
+r = ['flatten-workspace-tree', 'mode main']
+f = ['layout floating tiling', 'mode main']
+
+# Move window within workspace
+h = ['move left', 'mode main']
+j = ['move down', 'mode main']
+k = ['move up', 'mode main']
+l = ['move right', 'mode main']
+
+# Move window to workspace
+1 = ['move-node-to-workspace 1', 'mode main']
+2 = ['move-node-to-workspace 2', 'mode main']
+3 = ['move-node-to-workspace 3', 'mode main']
+4 = ['move-node-to-workspace 4', 'mode main']
+5 = ['move-node-to-workspace 5', 'mode main']
+6 = ['move-node-to-workspace 6', 'mode main']
+7 = ['move-node-to-workspace 7', 'mode main']
+8 = ['move-node-to-workspace 8', 'mode main']
+9 = ['move-node-to-workspace 9', 'mode main']
+
+# Resize
+minus = ['resize smart -50', 'mode main']
+equal = ['resize smart +50', 'mode main']
